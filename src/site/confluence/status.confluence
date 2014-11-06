@@ -35,3 +35,89 @@ h2. RunDeck API version 2
 * Updating and Listing Resources for a Project - *TODO*
 * Refreshing Resources for a Project - *TODO*
 
+h2. RunDeck API version 3
+
+[Documentation of the RunDeck API version 3|http://rundeck.org/1.4.2/api/index.html]
+
+* (only updates to Resource endpoints) - *TODO*
+
+h2. RunDeck API version 4
+
+[Documentation of the RunDeck API version 4|http://rundeck.org/1.4.3/api/index.html]
+
+* Running Adhoc Script URLs - *TODO*
+
+h2. RunDeck API version 5
+
+[Documentation of the RunDeck API version 5|http://rundeck.org/1.4.4/api/index.html]
+
+* Bulk Job Delete - OK
+* Execution Output - OK
+* Execution Query - OK
+* History list query - OK
+
+h2. RunDeck API version 6
+
+[Documentation of the RunDeck API version 6|http://rundeck.org/1.5/api/index.html]
+
+* Execution Output format fixed - OK
+
+h2. RunDeck API version 7
+
+[Documentation of the RunDeck API version 7|http://rundeck.org/1.5.3/api/index.html]
+
+* Incubator for cluster mode job takeover - *TODO*
+
+h2. RunDeck API version 8
+
+[Documentation of the RunDeck API version 8|http://rundeck.org/1.6.0/api/index.html]
+
+* scriptInterpreter addition to run script and run url - OK
+* project parameter added to jobs import - OK
+
+
+h2. RunDeck API version 9
+
+[Documentation of the RunDeck API version 9|http://rundeck.org/1.6.1/api/index.html]
+
+* list running executions across all projects - OK
+* include project name in execution results - OK
+* Add uuidOption parameter to allow removing imported UUIDs to avoid creation conflicts - OK
+
+h2. RunDeck API version 10
+
+[Documentation of the RunDeck API version 10|http://rundeck.org/2.0.0/api/index.html]
+
+* Execution State - Retrieve workflow step and node state information - OK
+* Execution Output with State - Retrieve log output with state change information - OK
+* Execution Output - Retrieve log output for a particular node or step - OK
+* Execution Info - added successfulNodes and failedNodes detail. - OK
+* Deprecation: Remove methods deprecated until version 10. - OK
+
+
+h2. RunDeck API version 11
+
+[Documentation of the RunDeck API version 11|http://rundeck.org/2.1.0/api/index.html]
+
+* Project creation - OK
+* Get Project configuration - OK
+* Set Project configuration - OK
+* Get/Set Project configuration keys - OK
+* Delete project - OK
+* Export project archive - OK
+* Import project archive - OK
+* Key file upload - OK
+* Key file delete - OK
+* Key file list - OK
+* Key file get - OK
+* API Token create - OK
+* API Token list - OK
+* API Token delete - OK
+
+h2. Rundeck API version 12
+
+[Documentation of the RunDeck API version 12|http://rundeck.org/2.2.0/api/index.html]
+
+* Bulk delete executions - OK
+* Delete execution - OK
+* Delete all executions for a job - OK

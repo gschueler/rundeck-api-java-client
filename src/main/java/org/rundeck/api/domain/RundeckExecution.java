@@ -17,6 +17,7 @@ package org.rundeck.api.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang.time.DurationFormatUtils;
 
@@ -50,6 +51,10 @@ public class RundeckExecution implements Serializable {
     private String abortedBy;
 
     private String description;
+    private String argstring;
+    private String project;
+    private Set<RundeckNodeIdentity> successfulNodes;
+    private Set<RundeckNodeIdentity> failedNodes;
 
     /**
      * @return the duration of the execution in milliseconds (or null if the duration is still running, or has been
@@ -170,8 +175,12 @@ public class RundeckExecution implements Serializable {
     @Override
     public String toString() {
         return "RundeckExecution [id=" + id + ", description=" + description + ", url=" + url + ", status=" + status
+               + ", argstring=" + argstring
                + ", startedBy=" + startedBy + ", startedAt=" + startedAt + ", endedAt=" + endedAt
-               + ", durationInSeconds=" + getDurationInSeconds() + ", abortedBy=" + abortedBy + ", job=" + job + "]";
+               + ", durationInSeconds=" + getDurationInSeconds() + ", abortedBy=" + abortedBy + ", job=" + job
+               + ", successfulNodes=" + getSuccessfulNodes()
+                + ", failedNodes=" + getFailedNodes()
+                + "]";
     }
 
     @Override
@@ -179,6 +188,7 @@ public class RundeckExecution implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((abortedBy == null) ? 0 : abortedBy.hashCode());
+        result = prime * result + ((argstring == null) ? 0 : argstring.hashCode());
         result = prime * result + ((description == null) ? 0 : description.hashCode());
         result = prime * result + ((endedAt == null) ? 0 : endedAt.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -187,6 +197,7 @@ public class RundeckExecution implements Serializable {
         result = prime * result + ((startedBy == null) ? 0 : startedBy.hashCode());
         result = prime * result + ((status == null) ? 0 : status.hashCode());
         result = prime * result + ((url == null) ? 0 : url.hashCode());
+        result = prime * result + ((project == null) ? 0 : project.hashCode());
         return result;
     }
 
@@ -203,6 +214,11 @@ public class RundeckExecution implements Serializable {
             if (other.abortedBy != null)
                 return false;
         } else if (!abortedBy.equals(other.abortedBy))
+            return false;
+        if (argstring == null) {
+            if (other.argstring != null)
+                return false;
+        } else if (!argstring.equals(other.argstring))
             return false;
         if (description == null) {
             if (other.description != null)
@@ -244,7 +260,47 @@ public class RundeckExecution implements Serializable {
                 return false;
         } else if (!url.equals(other.url))
             return false;
+        if (project == null) {
+            if (other.project != null)
+                return false;
+        } else if (!project.equals(other.project))
+            return false;
         return true;
+    }
+
+    /**
+     * the argument string for the execution
+     */
+    public String getArgstring() {
+        return argstring;
+    }
+
+    public void setArgstring(String argstring) {
+        this.argstring = argstring;
+    }
+
+    public String getProject() {
+        return project;
+    }
+
+    public void setProject(String project) {
+        this.project = project;
+    }
+
+    public Set<RundeckNodeIdentity> getSuccessfulNodes() {
+        return successfulNodes;
+    }
+
+    public void setSuccessfulNodes(Set<RundeckNodeIdentity> successfulNodes) {
+        this.successfulNodes = successfulNodes;
+    }
+
+    public Set<RundeckNodeIdentity> getFailedNodes() {
+        return failedNodes;
+    }
+
+    public void setFailedNodes(Set<RundeckNodeIdentity> failedNodes) {
+        this.failedNodes = failedNodes;
     }
 
     /**

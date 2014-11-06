@@ -15,12 +15,18 @@
  */
 package org.rundeck.api.parser;
 
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.dom4j.Node;
 import org.rundeck.api.domain.RundeckExecution;
 import org.rundeck.api.domain.RundeckJob;
 import org.rundeck.api.domain.RundeckExecution.ExecutionStatus;
+import org.rundeck.api.domain.RundeckNode;
+import org.rundeck.api.domain.RundeckNodeIdentity;
 
 /**
  * Parser for a single {@link RundeckExecution}
@@ -57,8 +63,10 @@ public class ExecutionParser implements XmlNodeParser<RundeckExecution> {
             execution.setStatus(null);
         }
         execution.setDescription(StringUtils.trimToNull(execNode.valueOf("description")));
+        execution.setArgstring(StringUtils.trimToNull(execNode.valueOf("argstring")));
         execution.setStartedBy(StringUtils.trimToNull(execNode.valueOf("user")));
         execution.setAbortedBy(StringUtils.trimToNull(execNode.valueOf("abortedby")));
+        execution.setProject(StringUtils.trimToNull(execNode.valueOf("@project")));
         String startedAt = StringUtils.trimToNull(execNode.valueOf("date-started/@unixtime"));
         if (startedAt != null) {
             execution.setStartedAt(new Date(Long.valueOf(startedAt)));
@@ -72,6 +80,26 @@ public class ExecutionParser implements XmlNodeParser<RundeckExecution> {
         if (jobNode != null) {
             RundeckJob job = new JobParser().parseXmlNode(jobNode);
             execution.setJob(job);
+        }
+
+        final Node successfulNodes = execNode.selectSingleNode("successfulNodes");
+        if (successfulNodes != null) {
+            final List<RundeckNode> rundeckNodes =
+                    new ListParser<RundeckNode>(new NodeParser(), "successfulNodes/node")
+                            .parseXmlNode(execNode);
+            execution.setSuccessfulNodes(new HashSet<RundeckNodeIdentity>(rundeckNodes));
+        }else{
+            execution.setSuccessfulNodes(Collections.<RundeckNodeIdentity>emptySet());
+        }
+
+        final Node failedNodes = execNode.selectSingleNode("failedNodes");
+        if (failedNodes != null) {
+            final List<RundeckNode> rundeckNodes =
+                    new ListParser<RundeckNode>(new NodeParser(), "failedNodes/node")
+                            .parseXmlNode(execNode);
+            execution.setFailedNodes(new HashSet<RundeckNodeIdentity>(rundeckNodes));
+        } else {
+            execution.setFailedNodes(Collections.<RundeckNodeIdentity>emptySet());
         }
 
         return execution;
